@@ -22,7 +22,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://your-frontend-url.vercel.app"
+  "shopnow-frontend-flax.vercel.app"
 ];
 
 app.use(cors({
