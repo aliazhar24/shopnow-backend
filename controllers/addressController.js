@@ -1,4 +1,4 @@
-import Address from "../models/Address.js";
+import Address from "../models/address.js";
 
 // 📌 Get all addresses of logged-in user
 export const getAddresses = async (req, res) => {
