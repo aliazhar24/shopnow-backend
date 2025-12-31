@@ -22,11 +22,17 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "shopnow-frontend-flax.vercel.app"
+  "https://shopnow-frontend-flax.vercel.app"
 ];
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS: " + origin));
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
@@ -34,6 +40,7 @@ app.use(cors({
 
 app.use((req, res, next) => {
   res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
+  res.setHeader("Cross-Origin-Embedder-Policy", "unsafe-none");
   next();
 });
 
@@ -47,7 +54,6 @@ app.use((req, res, next) => {
   console.log("REQUEST:", req.method, req.url);
   next();
 });
-
 
 
 
